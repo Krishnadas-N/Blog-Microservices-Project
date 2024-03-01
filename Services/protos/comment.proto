@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service CommentService {
+  rpc RemoveComments(RemoveCommentsRequest) returns (RemoveCommentsResponse) {}
+};
+
+message RemoveCommentsRequest {
+  string postId = 1;
+};
+
+message RemoveCommentsResponse {
+  bool success = 1;
+}

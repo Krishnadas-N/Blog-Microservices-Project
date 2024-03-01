@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service POSTSERVICE{
+    rpc CHECKPOSTEXISTS(CheckPostExistsRequest) returns (CheckPostExistsResponse) {}
+    
+}
+
+message CheckPostExistsRequest{
+    string  post_id = 1;
+}
+
+message CheckPostExistsResponse{
+    bool  exists = 1;
+}

@@ -1,0 +1,27 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .spacer {
+    flex: 1;
+  }
+  
+  .nav-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #1ec299; /* Change color to dark grey */
+  }
+  
+  .nav-links a.active {
+    color: #dd1919; /* Change active color to slightly lighter grey */
+    border-bottom: 2px solid #666; /* Change border color to match active color */
+  }
+
+  

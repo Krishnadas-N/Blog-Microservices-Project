@@ -1,0 +1,25 @@
+<div class="register-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="register-box">
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
+      <form class="register-form" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <mat-form-field class="register-field">
+            <input matInput placeholder="Username" [(ngModel)]="username" name="username">
+          </mat-form-field>
+          <mat-form-field class="register-field">
+            <input matInput placeholder="Email" [(ngModel)]="email" name="email">
+          </mat-form-field>
+          <mat-form-field class="register-field">
+            <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password">
+          </mat-form-field>
+          <mat-form-field class="register-field">
+            <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" name="confirmPassword">
+          </mat-form-field>
+        </mat-card-content>
+        <button mat-raised-button color="primary" class="register-btn" type="submit">Register</button>
+      </form>
+    </mat-card>
+  </div>
+  

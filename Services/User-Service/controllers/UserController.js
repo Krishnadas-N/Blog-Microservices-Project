@@ -57,6 +57,14 @@ const UserController = {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
     }
+  },
+  getDetails:(req,res)=>{
+    try{
+      console.log(req.user)
+      return req.user;
+    }catch(err){
+      console.log(err);
+    }
   }
 
   // Other user controller methods here

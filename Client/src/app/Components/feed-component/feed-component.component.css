@@ -1,0 +1,40 @@
+/* styles.css */
+.app-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .blog-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .blog-card {
+    width: 400px;
+    margin: 20px;
+  }
+  
+  .blog-avatar {
+    /* background-image: url(''); */
+    background-size: cover;
+  }
+  
+  .comment-section {
+    margin-top: 16px;
+  }
+  
+  .mat-card-title-group {
+    align-items: center;
+  }
+  
+  .mat-card-title {
+    font-size: 20px;
+  }
+  
+  .mat-card-subtitle {
+    font-size: 14px;
+    color: grey;
+  }
+  

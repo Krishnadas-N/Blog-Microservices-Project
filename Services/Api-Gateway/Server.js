@@ -2,67 +2,55 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const createError = require('http-errors');
-const { PostProxy,
-  userProxy,
-  commentProxy
- } = require('./routes/Routes');
+const { PostProxy, userProxy, commentProxy } = require('./routes/Routes'); // Assuming routes are defined elsewhere
 const retry = require('retry');
+
 const app = express();
 
-
 const retryOptions = {
-    retries: 3,
-    factor: 2,
-    minTimeout: 1000,
-    maxTimeout: 10000,
-    randomize: true
+  retries: 3, // Number of retry attempts
+  factor: 2, // Exponential backoff factor
+  minTimeout: 1000, // Minimum wait time between retries (ms)
+  maxTimeout: 10000, // Maximum wait time between retries (ms)
+  randomize: true, // Introduce randomness in wait times
 };
 
-// Define retry middleware
-const retryMiddleware = (req, res, next) => {
-    const operation = retry.operation(retryOptions);
 
-    operation.attempt(() => {
-        // Simulated backend service request logic
-        const randomNumber = Math.random();
-        if (randomNumber < 0.8) {
-            // Simulate successful response
-            next()
-        } else {
-            // Simulate failure and trigger retry
-            const error = new Error('Service unavailable');
-            error.statusCode = 503;
-            next(error);
-        }
-    });
-};
 
-app.use(retryMiddleware);
-// Middleware
-app.use(morgan('combined'));
-app.use(cors());
 
-// Define routes
+// app.use(retryMiddleware);
+
+// Optimized middleware usage:
+app.use(morgan('combined')); // HTTP request logging
+app.use(cors({ 
+  origin: '*', 
+  credentials: true, // Allow cookies for authenticated requests
+  optionsSuccessStatus: 200, // Send a 200 status code for preflight requests
+}));
+
+// Route definitions (assuming routes are implemented in `./routes/Routes`):
 app.use('/users', userProxy);
 app.use('/comments', commentProxy);
 app.use('/posts', PostProxy);
 
-// Error handling middleware for handling authentication errors
+// Enhanced error handling middleware with specific error responses:
 app.use((err, req, res, next) => {
   if (err instanceof createError.Unauthorized) {
-    res.status(err.status).json({ error: err.message });
+    res.status(err.status).json({ error: 'Authentication failed' }); // Provide specific error message
+  } else if (err instanceof createError.ServiceUnavailable) { // Handle retry-related errors
+    res.status(err.status).json({ error: 'Service temporarily unavailable' });
   } else {
     next(err); // Forward other errors to the default error handler
   }
 });
 
-// Default error handler
+// Default error handler with logging:
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal Server Error' });
+  console.error(err.stack); // Log the error stack for debugging
+  res.status(500).json({ error: 'Internal Server Error' }); // Generic error message for the client
 });
 
-// Start the server
+// Start the server:
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

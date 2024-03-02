@@ -25,7 +25,7 @@ app.delete('/posts/:id',authenticateToken, postController.deletePost);
 mongoose.connect('mongodb://localhost:27017/blogDb')
   .then(() => {
     console.log('Connected to MongoDB');
-    // server.start();
+
   })
   .catch(err => {
     console.error('Error connecting to MongoDB:', err.message);

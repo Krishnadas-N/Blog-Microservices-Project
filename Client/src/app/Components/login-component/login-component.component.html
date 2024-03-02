@@ -1,0 +1,22 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="login-box">
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+      <form class="login-form" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+          <mat-form-field class="login-field">
+            <input matInput placeholder="Email" [(ngModel)]="username" name="email">
+          </mat-form-field>
+          <mat-form-field class="login-field">
+            <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password">
+          </mat-form-field>
+        </mat-card-content>
+        <button mat-raised-button color="primary" class="login-btn" type="submit">Login</button>
+      </form>
+      <div *ngIf="showAlert" class="alert">
+        Please enter both email and password.
+      </div>
+    </mat-card>
+  </div>
+  

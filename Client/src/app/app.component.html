@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="app-header">
+  <span class="app-title" [routerLink]="['/feed']">Your App Name</span>
+  <span class="spacer"></span>
+  <span class="nav-links">
+    <ng-container *ngIf="isLoggedIn; else showLogin">
+      <!-- If logged in, show profile icon and username -->
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          {{ loggedInUserName }}
+        </button>
+        <button mat-menu-item (click)="logout()">
+          Logout
+        </button>
+      </mat-menu>
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #showLogin>
+      <!-- If not logged in, show login and register buttons -->
+      <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+      <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+    </ng-template>
+  </span>
+  
+</mat-toolbar>
+
+<router-outlet></router-outlet>

@@ -1,13 +1,18 @@
 syntax = "proto3";
 
 service UserService {
-  rpc CheckUserExists(UserRequest) returns (UserResponse) {}
-};
+  rpc CheckUserExists(UserRequest) returns (UserResponse) {};
+  rpc GetUsers(UserRequest) returns (UserDetails) {};
+}
 
 message UserRequest {
   string userId = 1;
-};
+}
 
 message UserResponse {
   bool exists = 1;
+}
+
+message UserDetails {
+  string username = 1;
 }

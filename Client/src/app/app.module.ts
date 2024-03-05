@@ -11,7 +11,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FeedComponentComponent } from './Components/feed-component/feed-component.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddPostComponentComponent } from './Components/add-post-component/add-post-component.component';
-
+import { AddPostCompoentntComponent } from './Components/add-post-compoentnt/add-post-compoentnt.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FeedDetailComponent } from './Components/feed-detail/feed-detail.component';
+ 
 
 @NgModule({
   declarations: [
@@ -20,6 +25,9 @@ import { AddPostComponentComponent } from './Components/add-post-component/add-p
     RegisterComponentComponent,
     FeedComponentComponent,
     AddPostComponentComponent,
+    AddPostCompoentntComponent,
+    FeedDetailComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -28,7 +36,10 @@ import { AddPostComponentComponent } from './Components/add-post-component/add-p
     FormsModule,
      ReactiveFormsModule,
      FlexLayoutModule, 
-     HttpClientModule
+     HttpClientModule,
+     MatDialogModule,
+     MatButtonModule,
+     
     
   ],
   providers: [

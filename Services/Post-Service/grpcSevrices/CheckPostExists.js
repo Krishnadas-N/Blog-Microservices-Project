@@ -2,7 +2,7 @@ const path = require('path');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const Post = require('../Models/postModel');
-
+const net = require('net');
 const packageDefinition  = protoLoader.loadSync(
     path.join(__dirname, '../../protos/post.proto'),
     {keepCase: true,
@@ -32,18 +32,45 @@ server.addService(postProto.POSTSERVICE.service,{
             });
     }
 })
+const desiredPort = 50051; // Replace with your desired port
 
-server.bindAsync(
-    "0.0.0.0:50051", // Replace with your desired host and port
-    grpc.ServerCredentials.createInsecure(),
-    (err, port) => {
-        if (err) {
-            console.error("Error binding server:", err);
-            return;
-        }
-        console.log(`Server started on port ${port}`);
-        // Start listening for requests
+const checkPortAvailability = (port, callback) => {
+    const tester = net.createServer()
+        .once('error', (err) => {
+            if (err.code === 'EADDRINUSE') {
+                callback(null, false);
+            } else {
+                callback(err);
+            }
+        })
+        .once('listening', () => {
+            tester.once('close', () => callback(null, true)).close();
+        })
+        .listen(port);
+};
+
+checkPortAvailability(desiredPort, (err, isAvailable) => {
+    if (err) {
+        console.error("Error checking port availability:", err);
+        return;
     }
-);
 
-module.exports = {server}
+    if (isAvailable) {
+        server.bindAsync(
+            `0.0.0.0:${desiredPort}`,
+            grpc.ServerCredentials.createInsecure(),
+            (bindErr, port) => {
+                if (bindErr) {
+                    console.error("Error binding server:", bindErr);
+                    return;
+                }
+                console.log(`Server started on port ${port}`);
+                // Start listening for requests
+            }
+        );
+    } else {
+        console.log(`Port ${desiredPort} is already in use. Server not started.`);
+    }
+});
+
+module.exports = { server };

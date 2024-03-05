@@ -1,1 +1,34 @@
-<p>add-post-component works!</p>
+<h2 mat-dialog-title>Add Post</h2>
+<div mat-dialog-content>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+      <mat-error *ngIf="postForm.get('title')?.hasError('required')">
+        Title is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+      <mat-error *ngIf="postForm.get('description')?.hasError('required')">
+        Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Attach File</mat-label>
+        <input #fileInput type="file" hidden (change)="handleFileChange($event)">
+        <mat-icon-button type="button" (click)="fileInput.click()">
+          <mat-icon>attach_file</mat-icon>
+        </mat-icon-button>
+        <input matInput [placeholder]="fileName ? fileName : 'Enter file name'" >
+      </mat-form-field>
+      
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Cancel</button>
+  <button mat-button color="primary" [disabled]="!postForm.valid" (click)="onSubmit()">Create Post</button>
+</div>

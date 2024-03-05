@@ -1,0 +1,59 @@
+.container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap:2rem;
+    align-items: center;
+  }
+  
+  .post-card {
+    max-width: 49%;
+    /* margin-left: 5%; */
+  }
+  
+  .comments-section {
+    max-width: 49%;
+    /* margin-left: 5%; */
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+  }
+  
+  .add-comment {
+    margin-top: 20px;
+  }
+  
+  .add-comment mat-form-field {
+    width: 100%;
+  }
+  
+  .add-comment button {
+    margin-top: 10px;
+  }
+  
+  .comment-user {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .mat-list-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .add-comment {
+    margin-top: 20px;
+  }
+  
+  .add-comment mat-form-field {
+    width: 100%;
+  }
+  
+  .add-comment button {
+    margin-top: 10px;
+  }
+  

@@ -1,0 +1,20 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required>
+      <mat-error *ngIf="postForm.get('title')?.hasError('required')">
+        Title is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Content</mat-label>
+      <textarea matInput formControlName="content" required></textarea>
+      <mat-error *ngIf="postForm.get('content')?.hasError('required')">
+        Content is required
+      </mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button type="submit" color="primary">Create Post</button>
+  </form>
+  

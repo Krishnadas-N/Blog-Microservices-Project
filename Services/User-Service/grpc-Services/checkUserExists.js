@@ -14,12 +14,22 @@ const server = new grpc.Server();
 server.addService(userProto.UserService.service, {
     CheckUserExists: async (call, callback) => {
         const userId = call.request.userId;
+        console.log("user",userId);
         // Query the database to check if the user exists
         const user = await User.findOne({ _id: userId });
         if (user) {
             callback(null, { exists: true });
         } else {
             callback(null, { exists: false });
+        }
+    },
+    GetUsers:async(call,callback)=> {
+        const userId = call.request.userId;
+        const user = await User.findOne({ _id: userId });
+        if (user) {
+            callback(null, { username: user.username });
+        } else {
+            callback(null, { username: null });
         }
     }
 });

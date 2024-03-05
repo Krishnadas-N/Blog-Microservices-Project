@@ -37,4 +37,14 @@
     font-size: 14px;
     color: grey;
   }
-  
+  .blog-image {
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* Ensure the image covers the entire container */
+  }
+  /* loading-spinner.component.css */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

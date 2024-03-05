@@ -58,7 +58,7 @@ const UserController = {
       res.status(500).json({ message: 'Internal server error' });
     }
   },
-  getDetails:(req,res)=>{
+  getDetails:async(req,res)=>{
     try{
       console.log(req.user)
       return req.user;
@@ -66,7 +66,21 @@ const UserController = {
       console.log(err);
     }
   }
-
+  ,
+  getUser:async(req,res)=>{
+    try{
+      console.log(req.user)
+      const UserId=req.params.id
+       // Find user by username
+       const user = await User.findOne({ _id:UserId });
+       if (!user) {
+         return res.status(401).json({ message: 'Invalid username or password' });
+       }
+       res.status(200).json({ user });
+    }catch(err){
+      console.log(err);
+    }
+  }
   // Other user controller methods here
 };
 

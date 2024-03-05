@@ -5,7 +5,8 @@ const Post = require('../Models/postModel');
 exports.getAllPosts = async (req, res) => {
   try {
     const userId = req.userId
-    const posts = await Post.find({author:userId});
+    console.log(userId)
+    const posts = await Post.find({});
     if(!posts){
       res.status(404).json({succes:false,data:"No post found"})
     }
@@ -52,5 +53,23 @@ exports.deletePost = async (req, res) => {
     res.json({ message: 'Post deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+
+exports.getSinglPost=async (req, res) => {
+  try {
+    const userId = req.userId;
+    const postId = req.params.id;
+    console.log(userId)
+    const posts = await Post.findOne({_id:postId});
+    if(!posts){
+      res.status(404).json({succes:false,data:"No post found"})
+    }
+    else{
+    res.json({succes:true,data:posts});
+    }
+  } catch (err) {
+    res.status(500).json({succes:false, message: err.message });
   }
 };

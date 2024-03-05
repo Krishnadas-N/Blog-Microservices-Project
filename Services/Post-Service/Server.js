@@ -1,6 +1,7 @@
 // index.js
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const mongoose = require('mongoose');
 const postController = require('./Controllers/postControllers');
 const { authenticateToken } = require('./middlewares/Authentication');
@@ -13,10 +14,13 @@ const PORT = process.env.PORT || 5001;
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended:true}))
 const upload = multer({ storage: multer.memoryStorage() });
-
+app.use(cors({
+  origin: '*'
+}));
 
 app.post('/posts/',authenticateToken,upload.single('post'), fileUpload);
 app.get('/posts/',authenticateToken, postController.getAllPosts);
+app.get('/posts/:id',authenticateToken, postController.getSinglPost)
 app.patch('/posts/:id',authenticateToken, postController.updatePost);
 app.delete('/posts/:id',authenticateToken, postController.deletePost);
 

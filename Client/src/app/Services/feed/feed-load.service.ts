@@ -17,6 +17,17 @@ export class FeedLoadService {
     });
   }
 
+  uploadFile(name: string, description: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('post', file);
+    formData.append('title', name);
+    formData.append('description', description);
+
+    const headers = this.getHeaders();
+
+    return this.http.post(`${this.Url}/posts/`, formData, { headers });
+  }
+
   getAllCommentsByPostId(postId: string): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${this.Url}/comments/${postId}`, {
       headers: this.getHeaders()
@@ -36,4 +47,34 @@ export class FeedLoadService {
       headers: this.getHeaders()
     });
   }
+  getUser(userId:string):Observable<any>{
+    return this.http.get<Comment[]>(`${this.Url}/users/get-user/${userId}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  getPost(postId:string):Observable<any>{
+    return this.http.get<Comment[]>(`${this.Url}/posts/${postId}`, {
+      headers: this.getHeaders()
+    });
+   
+  }
+  
+  getComment(postId:string):Observable<any>{
+    return this.http.get<Comment[]>(`${this.Url}/comments/${postId}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  addComment(content:string,postId:string):Observable<any>{
+    const body = {
+      content: content,
+      postId: postId
+    };
+    
+    return this.http.post<Comment[]>(`${this.Url}/comments`,body, {
+      headers: this.getHeaders()
+    });
+  }
+  
 }

@@ -25,9 +25,6 @@ mongoose.connect('mongodb://localhost:27017/blogUserDb')
   .then(() => {
     console.log('Connected to MongoDB');
     
-    // Start the gRPC server
-    server.start();
-
     // Start the Express server
     app.listen(PORT, () => {
       console.log(`User service running on port ${PORT}`);
